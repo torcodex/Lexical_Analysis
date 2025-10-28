@@ -39,7 +39,23 @@ void main(){
         }
         if(isdigit(ch)){
             buf[k++]=ch;
-            flag=1
+            flag=1;
+        }
+        else if((ch=" "||ch=","||ch="\n")&&(i!=0&&j!=0)){
+            buffer[j]="\0";
+            buf[k]="\0";
+            j=0;
+            k=0;
+
+            if(iskey(buffer)==1){
+                printf("%s is a keyword",ch);
+            }
+            else if(flag==0){
+                printf("%s is a identifier",ch);
+            }
+            else if(flag==1){
+                printf("%s is a constant",ch);
+            }
         }
     }
 }
