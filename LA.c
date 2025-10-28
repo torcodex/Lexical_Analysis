@@ -3,59 +3,61 @@
 #include<string.h>
 #include<ctype.h>
 
+int iskey(char buf){
+    int flag=0,i;
 
-int iskey(char b){
-    int flag;
-    char keys[21][10] = {
-        "char", "int", "void", "if", "for", "else", "while", "do", "break", "return", "switch", "case", "default", "continue", "const", "goto", "typeof", "sizeof", "struct", "enum", "auto"
+    char key[21][10]={
+        "if", "else", "do", "double", "while", "for", "switch", "case", "break", "int", "enum", "void", "char", "goto", "default", "float", "auto", "sizeof", "typeof", "long", "short",
     };
-    for(int i=0;i<21;i++){
-        if(strcmp(keys[i],b)==0){
-            flag = 1;
+    for(i=0;i<21;i++){
+        if(strcmp(buf,key[i])==0){
+            flag=1;
         }
     }
     return flag;
 }
 
 void main(){
-    char ch,buffer[15],buf[15], op=[]="+-*/%=",num="0123456789", sc="{[;,]}";
-    FILE *fp;
     int i,j=0,k=0,flag=0;
-    fp=fopen("pr.txt","r");
+    char c,buffer[15],buf[15],sp[]="{[;,]}",op[]="+-*/%=",num="0123456789";
+    FILE *fp;
+    fp = fopen("prt.txt","r");
     if(fp==NULL){
         printf("Error!!!");
     }
-    while(ch=fgetc(fp)!=EOF){
+    while ((c=fgetc(fp))!=EOF)
+    {
         for(i=0;i<6;i++){
-            if(ch==op[i]){
-                printf("%c is an operator\n",ch);
+            if(c==sp[i]){
+                printf("%s is special character");
             }
-            if(ch==sc[i]){
-                printf("%c is an special character\n",ch);
+            if(c==op[i]){
+                printf("%s is operator");
             }
         }
-        if(isalpha(ch)){
-            buffer[j++]=ch;
+        if(isalpha(c)){
+            buffer[k++]=c;
         }
-        if(isdigit(ch)){
-            buf[k++]=ch;
+        if(isdigit(c)){
+            buf[j++]=c;
             flag=1;
         }
-        else if((ch=" "||ch=","||ch="\n")&&(i!=0&&j!=0)){
-            buffer[j]="\0";
-            buf[k]="\0";
+        else if((c==" "||c==","||c=="\n")&&(j!=0&&k!=0)){
+            buf[j]="\0";
+            buffer[k]="\0";
             j=0;
             k=0;
 
-            if(iskey(buffer)==1){
-                printf("%s is a keyword",ch);
+            if(iskey[buffer]==1){
+                printf("%s is a keyword",c);
             }
             else if(flag==0){
-                printf("%s is a identifier",ch);
+                printf("%s is a identifier",c);
             }
             else if(flag==1){
-                printf("%s is a constant",ch);
+                printf("%s is a number",c);
             }
         }
     }
+    
 }
